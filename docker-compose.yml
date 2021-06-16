@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    image: farmers-market
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .
+    depends_on:
+      - migration
+  migration:
+    image: farmers-market
+    command: python manage.py migrate --noinput
+    volumes:
+      - .
